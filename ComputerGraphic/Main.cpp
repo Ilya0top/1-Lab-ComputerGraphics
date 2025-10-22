@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
     setlocale(LC_ALL, "RUSSIAN");
-    string imagePath = "C:\\Users\\ilabe\\OneDrive\\Изображения\\CG.png";
+    string imagePath = "Image\\original.jpg";
     cv::Mat image = cv::imread(imagePath);
 
     if (image.empty())

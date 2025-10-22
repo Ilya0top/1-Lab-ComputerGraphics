@@ -58,14 +58,14 @@ public:
         // Тест 4: Сохранение результатов
         std::cout << "\n--- ТЕСТ 4: Сохранение результатов ---\n";
 
-        cv::imwrite("original.jpg", originalImage);
-        cv::imwrite("result_shadows_50.jpg", result1);
-        cv::imwrite("result_highlights_40.jpg", result2);
-        cv::imwrite("result_both_30_20.jpg", result3);
-        cv::imwrite("result_strong_70_50.jpg", result4);
-        cv::imwrite("comparison.jpg", finalDisplay);
+        cv::imwrite("Image\\original.jpg", originalImage);
+        cv::imwrite("ImageResult\\result_shadows_50.jpg", result1);
+        cv::imwrite("ImageResult\\result_highlights_40.jpg", result2);
+        cv::imwrite("ImageResult\\result_both_30_20.jpg", result3);
+        cv::imwrite("ImageResult\\result_strong_70_50.jpg", result4);
+        cv::imwrite("ImageResult\\comparison.jpg", finalDisplay);
 
-        std::cout << "Результаты сохранены в файлы:\n - original.jpg\n - result_shadows_50.jpg\n - result_highlights_40.jpg\n - result_both_30_20.jpg\n - result_strong_70_50.jpg\n - comparison.jpg\n";
+        std::cout << "Результаты сохранены в файлы:\n - Image\\original.jpg\n - ImageResult\\result_shadows_50.jpg\n - ImageResult\\result_highlights_40.jpg\n - ImageResult\\result_both_30_20.jpg\n - ImageResult\\result_strong_70_50.jpg\n - ImageResult\\comparison.jpg\n";
 
         std::cout << "\n==========================================\nТЕСТИРОВАНИЕ ЗАВЕРШЕНО\nНажмите любую клавишу для выхода...\n==========================================\n";
 
