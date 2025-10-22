@@ -1,0 +1,27 @@
+## Visual Studio ##
+.vs/
+x64/
+Debug/
+Release/
+ipch/
+*.user
+*.aps
+*.pdb
+*.obj
+*.log
+*.tlog
+*.ilk
+*.exe
+*.dll
+*.cache
+*.tmp
+*.db
+
+## C++ ##
+*.o
+*.out
+*.so
+
+## Project files ##
+*.vcxproj
+*.filters
