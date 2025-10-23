@@ -7,35 +7,35 @@
 #include <iostream>
 
 /// <summary>
-/// Фильтр для коррекции теней и светов изображения.
-/// 
-/// Реализует профессиональный алгоритм аналогичный Adobe Photoshop
-/// с раздельной настройкой теней и светов, плавными переходами
-/// и сохранением цветового баланса.
+/// A filter for correcting shadows and highlights of an image.
+///
+/// Implements a professional algorithm similar to Adobe Photoshop
+/// with separate adjustment of shadows and lights, smooth transitions
+/// and maintaining color balance.
 /// </summary>
 class ShadowHighlightsFilter
 {
-	/// <summary>Сила осветления теней (0.0 - 1.0)</summary>
+	/// <summary>Shadow lightening power (0.0 - 1.0)</summary>
 	float shadowAmount;
 
-    /// <summary>Сила затемнения светов (0.0 - 1.0)</summary>
+    /// <summary>Highlight darkening power (0.0 - 1.0)</summary>
 	float highlightAmount;
 
-    /// <summary>Тональная ширина (0.0 - 1.0)</summary>
+    /// <summary>Tonal  width (0.0 - 1.0)</summary>
     float tonalWidth;
 
-    /// <summary>Радиус размытия масок (0.0 - 50.0)</summary>
+    /// <summary>The radius of blurring masks (0.0 - 50.0)</summary>
     float blurRadius;
 
 public:
 
     /// <summary>
-    /// Создает фильтр с указанными параметрами
+    /// Creates a filter with specified parameters
     /// </summary>
-    /// <param name="shadows">Сила осветления теней (0.0 - 1.0)</param>
-    /// <param name="highlights">Сила затемнения светов (0.0 - 1.0)</param>
-    /// <param name="width">Тональная ширина (0.0 - 1.0)</param>
-    /// <param name="radius">Радиус размытия масок (0.0 - 50.0)</param>
+    /// <param name="shadows">Shadow lightening power (0.0 - 1.0)</param>
+    /// <param name="highlights">Highlight darkening power (0.0 - 1.0)</param>
+    /// <param name="width">Tonal width (0.0 - 1.0)</param>
+    /// <param name="radius">Blur radius for masks (0.0 - 50.0)</param>
     ShadowHighlightsFilter(float shadows = 0.3f, float highlights = 0.3f, float width = 0.5f, float radius = 15.0f)
         :   shadowAmount(std::max(0.0f, std::min(1.0f, shadows))), 
             highlightAmount(std::max(0.0f, std::min(1.0f, highlights))), 
@@ -45,15 +45,15 @@ public:
     }
 
     /// <summary>
-    /// Применяет фильтр к изображению
+    /// Applies the filter to an image
     /// </summary>
-    /// <param name="inputImage">Входное BGR изображение</param>
-    /// <returns>Обработанное изображение</returns>
-    /// <exception cref="std::invalid_argument">Если входное изображение пустое</exception>
+    /// <param name="inputImage">Input BGR image</param>
+    /// <returns>Processed image</returns>
+    /// <exception cref="std::invalid_argument">If input image is empty</exception>
     cv::Mat apply(const cv::Mat& inputImage) 
     {
         if (inputImage.empty())
-            throw std::invalid_argument("Входное изображение пусто");
+            throw std::invalid_argument("Input image is empty");
 
         cv::Mat labImage = ColorConverter::BGR2Lab(inputImage);
 
@@ -71,55 +71,55 @@ public:
     }
 
     /// <summary>
-    /// Устанавливает силу осветления теней
+    /// Sets the shadow lightening power
     /// </summary>
-    /// <param name="amount">Значение от 0.0 до 1.0</param>
+    /// <param name="amount">Value from 0.0 to 1.0</param>
     void setShadowAmount(float amount) 
     { 
         shadowAmount = std::max(0.0f, std::min(1.0f, amount)); 
     }
 
     /// <summary>
-    /// Устанавливает силу затемнения светов
+    /// Sets the highlight darkening power
     /// </summary>
-    /// <param name="amount">Значение от 0.0 до 1.0</param>
+    /// <param name="amount">Value from 0.0 to 1.0</param>
     void setHighlightAmount(float amount) 
     { 
         highlightAmount = std::max(0.0f, std::min(1.0f, amount)); 
     }
 
     /// <summary>
-    /// Устанавливает тональную ширину
+    /// Sets the tonal width
     /// </summary>
-    /// <param name="width">Значение от 0.0 до 1.0</param>
+    /// <param name="width">Value from 0.0 to 1.0</param>
     void setTonalWidth(float width) 
     { 
         tonalWidth = std::max(0.0f, std::min(1.0f, width)); 
     }
 
     /// <summary>
-    /// Устанавливает радиус размытия масок
+    /// Sets the blur radius for masks
     /// </summary>
-    /// <param name="radius">Значение от 0.0 до 50.0</param>
+    /// <param name="radius">Value from 0.0 to 50.0</param>
     void setBlurRadius(float radius) 
     { 
         blurRadius = std::max(0.0f, std::min(50.0f, radius)); 
     }
 
     /// <summary>
-    /// Выводит текущие настройки фильтра
-    /// </summary
+    /// Prints current filter settings
+    /// </summary>
     void printCurrentSettings() const 
     {
-        std::cout << "Текущие параметры Shadow/Highlights:\nShadow Amount: " << shadowAmount * 100 << "%\nHighlight Amount: " << highlightAmount * 100 << "%\nTonal Width: " << tonalWidth << "\nBlur Radius: " << blurRadius << " px";
+        std::cout << "Current Shadow/Highlights parameters:\nShadow Amount: " << shadowAmount * 100 << "%\nHighlight Amount: " << highlightAmount * 100 << "%\nTonal Width: " << tonalWidth << "\nBlur Radius: " << blurRadius << " px";
     }
 private:
 
-	/// <summary>
-	/// Нормализует значение яркости в диапазоне 0-1
-	/// </summary>
-	/// <param name="luminance">Матрица яркости Lab канала</param>
-	/// <returns>Нормализованная матрица яркости</returns>
+    /// <summary>
+    /// Normalizes luminance values to range 0-1
+    /// </summary>
+    /// <param name="luminance">Lab channel luminance matrix</param>
+    /// <returns>Normalized luminance matrix</returns>
 	cv::Mat normalizeLuminance(const cv::Mat& luminance) const
 	{
 		cv::Mat result(luminance.size(), CV_32F);
@@ -135,10 +135,10 @@ private:
 	}
 
     /// <summary>
-    /// Денормализует значения яркости в диапазон 0-255
+    /// Denormalizes luminance values to range 0-255
     /// </summary>
-    /// <param name="normalizedLuminance">Нормализованная матрица яркости</param>
-    /// <returns>Денормализованная матрица яркости</returns>
+    /// <param name="normalizedLuminance">Normalized luminance matrix</param>
+    /// <returns>Denormalized luminance matrix</returns>
 	cv::Mat denormalizeLuminance(const cv::Mat& normalizedLuminance) 
 	{
 		cv::Mat result(normalizedLuminance.size(), CV_32F);
@@ -154,12 +154,12 @@ private:
 	}
 
     /// <summary>
-    /// Применяет продвинутую коррекцию яркости с использованием масок
+    /// Applies advanced luminance correction using masks
     /// </summary>
-    /// <param name="luminance">Матрица яркости</param>
-    /// <param name="shadowMask">Маска теней</param>
-    /// <param name="highlightMask">Маска светов</param>
-    /// <returns>Скорректированная матрица яркости</returns>
+    /// <param name="luminance">Luminance matrix</param>
+    /// <param name="shadowMask">Shadow mask</param>
+    /// <param name="highlightMask">Highlight mask</param>
+    /// <returns>Corrected luminance matrix</returns>
     cv::Mat applyAdvancedCorrection(const cv::Mat& luminance, const cv::Mat& shadowMask, const cv::Mat& highlightMask) const
     {
         cv::Mat result = luminance.clone();
@@ -182,11 +182,11 @@ private:
     }
 
     /// <summary>
-    /// Конвертирует обратно в BGR цветовое пространство
+    /// Converts back to BGR color space
     /// </summary>
-    /// <param name="correctedLuminance">Скорректированная яркость</param>
-    /// <param name="labChannels">Каналы Lab изображения</param>
-    /// <returns>BGR изображение</returns>
+    /// <param name="correctedLuminance">Corrected luminance</param>
+    /// <param name="labChannels">Lab image channels</param>
+    /// <returns>BGR image</returns>
 	cv::Mat convertBackToBGR(const cv::Mat& correctedLuminance, std::vector<cv::Mat>& labChannels) 
 	{
 		cv::Mat denormalizedLuminance = denormalizeLuminance(correctedLuminance);
@@ -196,11 +196,11 @@ private:
 	}
 
     /// <summary>
-    /// Применяет гауссово размытие к изображению
+    /// Applies Gaussian blur to an image
     /// </summary>
-    /// <param name="input">Входное изображение</param>
-    /// <param name="radius">Радиус размытия</param>
-    /// <returns>Размытое изображение</returns>
+    /// <param name="input">Input image</param>
+    /// <param name="radius">Blur radius</param>
+    /// <returns>Blurred image</returns>
     cv::Mat applyGaussianBlur(const cv::Mat& input, float radius) const 
     {
         if (radius < 0.1f) 
@@ -215,11 +215,11 @@ private:
     }
 
     /// <summary>
-    /// Создает гауссово ядро для размытия
+    /// Creates Gaussian kernel for blurring
     /// </summary>
-    /// <param name="size">Размер ядра</param>
-    /// <param name="sigma">Стандартное отклонение</param>
-    /// <returns>Гауссово ядро</returns>
+    /// <param name="size">Kernel size</param>
+    /// <param name="sigma">Standard deviation</param>
+    /// <returns>Gaussian kernel</returns>
     cv::Mat createGaussianKernel(int size, float sigma) const
     {
         cv::Mat kernel(size, size, CV_32F);
@@ -240,11 +240,11 @@ private:
     }
 
     /// <summary>
-    /// Применяет свертку с обработкой границ изображения
+    /// Applies convolution with image border handling
     /// </summary>
-    /// <param name="input">Входное изображение</param>
-    /// <param name="kernel">Ядро свертки</param>
-    /// <returns>Результат свертки</returns>
+    /// <param name="input">Input image</param>
+    /// <param name="kernel">Convolution kernel</param>
+    /// <returns>Convolution result</returns>
     cv::Mat applyConvolution(const cv::Mat& input, const cv::Mat& kernel) const
     {
         cv::Mat result = cv::Mat::zeros(input.size(), input.type());
@@ -287,10 +287,10 @@ private:
     }
 
     /// <summary>
-    /// Создает улучшенную маску для теней
+    /// Creates enhanced shadow mask
     /// </summary>
-    /// <param name="luminance">Матрица яркости</param>
-    /// <returns>Маска теней</returns>
+    /// <param name="luminance">Luminance matrix</param>
+    /// <returns>Shadow mask</returns>
     cv::Mat createAdvancedShadowMask(const cv::Mat& luminance) const
     {
         float shadowThreshold = 0.5f * tonalWidth;
@@ -326,10 +326,10 @@ private:
     }
 
     /// <summary>
-    /// Создает улучшенную маску для светов
+    /// Creates enhanced highlight mask
     /// </summary>
-    /// <param name="luminance">Матрица яркости</param>
-    /// <returns>Маска светов</returns>
+    /// <param name="luminance">Luminance matrix</param>
+    /// <returns>Highlight mask</returns>
     cv::Mat createAdvancedHighlightMask(const cv::Mat& luminance) const
     {
         float highlightThreshold = 1.0f - 0.5f * tonalWidth;
@@ -364,11 +364,11 @@ private:
     }
 
     /// <summary>
-    /// Применяет быстрое гауссово размытие с итерациями
+    /// Applies fast Gaussian blur with iterations
     /// </summary>
-    /// <param name="input">Входное изображение</param>
-    /// <param name="radius">Радиус размытия</param>
-    /// <returns>Размытое изображение</returns>
+    /// <param name="input">Input image</param>
+    /// <param name="radius">Blur radius</param>
+    /// <returns>Blurred image</returns>
     cv::Mat applyFastGaussianBlur(const cv::Mat& input, float radius) const
     {
         if (radius < 1.0f) 

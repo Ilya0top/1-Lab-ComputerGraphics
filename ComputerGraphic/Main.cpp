@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    setlocale(LC_ALL, "RUSSIAN");
+    //setlocale(LC_ALL, "RUSSIAN");
     string imagePath = "Image\\original.jpg";
     cv::Mat image = cv::imread(imagePath);
 
@@ -16,10 +16,10 @@ int main()
 
 
 
-    // 1. Comprehensive тестирование
+    // 1. Comprehensive testing
     TestRunner::runComprehensiveTest(image);
 
-    // 2. Оптимизированный тест
+    // 2. Optimized test
     //TestRunner::runOptimizedTest(image);
 
 }

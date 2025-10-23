@@ -5,17 +5,17 @@
 #include <cmath>
 
 /// <summary>
-/// Конвертер между BRG и Lab цветовыми пространствами
+/// Converter between BRG and Lab color spaces
 /// </summary>
 class ColorConverter
 {
 public:
 
 	/// <summary>
-	/// Преобразует BGR изображение в Lab пространство 
+	/// Converts a BGR image into a Lab space
 	/// </summary>
-	/// <param name="bgrImage">Входное BGR bpj,hf;tybt</param>
-	/// <returns>Lab изображение в формате OpenCV</returns>
+	/// <param name="bgrImage">Input BGR image</param>
+	/// <returns>Lab image in OpenCV format</returns>
 	static cv::Mat BGR2Lab(const cv::Mat& bgrImage)
 	{
 		cv::Mat labImage(bgrImage.size(), CV_32FC3);
@@ -35,10 +35,10 @@ public:
 	}
 
 	/// <summary>
-	/// Преобразует Lab изображение в BGR пространство
+	/// Converts a Lab image into a BGR space
 	/// </summary>
-	/// <param name="labImage">Входное Lab изображение</param>
-	/// <returns>BGR изображение в формате OpenCV</returns>
+	/// <param name="labImage">Input Lab image</param>
+	/// <returns>BGR image in OpenCV format</returns>
 	static cv::Mat Lab2BGR(const cv::Mat& labImage)
 	{
 		cv::Mat bgrImage(labImage.size(), CV_8UC3);
@@ -62,14 +62,14 @@ public:
 private:
 
 	/// <summary>
-	/// Преобразует RGB в XYZ цветовое пространство
+	/// Converts RGB to XYZ color space
 	/// </summary>
-	/// <param name="r">Красный канал</param>
-	/// <param name="g">Зеленый канал</param>
-	/// <param name="b">Синий канал</param>
-	/// <param name="x">Выходной X канал</param>
-	/// <param name="y">Выходной Y канал</param>
-	/// <param name="z">Выходной Z канал</param>
+	/// <param name="r">Red Channel</param>
+	/// <param name="g">Green Channel</param>
+	/// <param name="b">Blue Channel</param>
+	/// <param name="x">Output X channel</param>
+	/// <param name="y">Output Y channel</param>
+	/// <param name="z">Output Z channel</param>
 	static void RGB2XYZ(float r, float g, float b, float& x, float& y, float& z)
 	{
 		r = (r > 0.04045f) ? pow((r + 0.055f) / 1.055f, 2.4f) : (r / 12.92f);
@@ -86,12 +86,12 @@ private:
 	}
 
 	/// <summary>
-	/// Преобразует XYZ в Lab цветовое пространство
+	/// Converts XYZ to Lab color space
 	/// </summary>
-	/// <param name="x">X канал XYZ</param>
-	/// <param name="y">Y канал XYZ</param>
-	/// <param name="z">Z канал XYZ</param>
-	/// <returns>Вектор Lab значений</returns>
+	/// <param name="x">X channel</param>
+	/// <param name="y">Y channel</param>
+	/// <param name="z">Z channel</param>
+	/// <returns>Vector of Lab values</returns>
 	static cv::Vec3f XYZ2Lab(float x, float y, float z)
 	{
 		auto f = [](float t) -> float
@@ -120,14 +120,14 @@ private:
 	}
 
 	/// <summary>
-	/// Преобразует Lab в XYZ цветовое пространство
+	/// Converts Lab to XYZ color space
 	/// </summary>
-	/// <param name="l">L канал Lab</param>
-	/// <param name="a">a канал Lab</param>
-	/// <param name="b">b канал Lab</param>
-	/// <param name="x">Выходной X канал</param>
-	/// <param name="y">Выходной Y канал</param>
-	/// <param name="z">Выходной Z канал</param>
+	/// <param name="l">L channel</param>
+	/// <param name="a">a channel</param>
+	/// <param name="b">b channel</param>
+	/// <param name="x">Output X channel</param>
+	/// <param name="y">Output Y channel</param>
+	/// <param name="z">Output Z channel</param>
 	static void Lab2XYZ(float l, float a, float b, float& x, float& y, float& z)
 	{
 		l = l * 100.0f / 255.0f;
@@ -157,14 +157,14 @@ private:
 	}
 
 	/// <summary>
-	/// Преобразует XYZ в RGB цветовое пространство
+	/// Converts XYZ to RGB color space
 	/// </summary>
-	/// <param name="x">X канал XYZ</param>
-	/// <param name="y">Y канал XYZ</param>
-	/// <param name="z">Z канал XYZ</param>
-	/// <param name="r">Выходной красный канал</param>
-	/// <param name="g">Выходной зеленый канал</param>
-	/// <param name="b">Выходной синий канал</param>
+	/// <param name="x">X channel</param>
+	/// <param name="y">Y channel</param>
+	/// <param name="z">Z channel</param>
+	/// <param name="r">Output red channel</param>
+	/// <param name="g">Output green channel</param>
+	/// <param name="b">Output blue channel</param>
 	static void XYZ2RGB(float x, float y, float z, float& r, float& g, float& b)
 	{
 		x *= 0.95047f;
@@ -185,10 +185,10 @@ private:
 	}
 
 	/// <summary>
-	/// Безопасное приведение float значения к uchar с обрезкой
+	/// Safely converting a float value to uchar with pruning
 	/// </summary>
-	/// <param name="value">Входное значение float</param>
-	/// <returns>Значение uchar в диапазоне 0-255</returns>
+	/// <param name="value">Float input value</param>
+	/// <returns>The uchar value is in the range 0-255</returns>
 	static uchar saturate_cast(float value)
 	{
 		int ivalue = static_cast<int>(value);
