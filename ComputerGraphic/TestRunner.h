@@ -58,15 +58,32 @@ public:
         // Test 4: Results saving
         std::cout << "\n--- TEST 4: Results saving ---\n";
 
+        std::vector<int> compression_params;
+        compression_params.push_back(cv::IMWRITE_JPEG_QUALITY);
+        compression_params.push_back(100);
+        compression_params.push_back(cv::IMWRITE_JPEG_PROGRESSIVE);
+        compression_params.push_back(0);
+
         cv::imwrite("Image\\original.jpg", originalImage);
         cv::imwrite("ImageResult\\result_shadows_50.jpg", result1);
         cv::imwrite("ImageResult\\result_highlights_40.jpg", result2);
         cv::imwrite("ImageResult\\result_both_30_20.jpg", result3);
+
+        cv::imwrite("ImageResult\\result_both_30_20_high_quality.jpg", result3, compression_params);
+        cv::imwrite("ImageResult\\my_filter_for_comparison.jpg", result3, compression_params);
+
         cv::imwrite("ImageResult\\result_strong_70_50.jpg", result4);
         cv::imwrite("ImageResult\\comparison.jpg", finalDisplay);
 
-        std::cout << "Results saved to files:\n - Image\\original.jpg\n - ImageResult\\result_shadows_50.jpg\n - ImageResult\\result_highlights_40.jpg\n - ImageResult\\result_both_30_20.jpg\n - ImageResult\\result_strong_70_50.jpg\n - ImageResult\\comparison.jpg\n";
-
+        std::cout << "Results saved to files:\n"
+            << " - Image\\original.jpg\n"
+            << " - ImageResult\\result_shadows_50.jpg\n"
+            << " - ImageResult\\result_highlights_40.jpg\n"
+            << " - ImageResult\\result_both_30_20.jpg\n"
+            << " - ImageResult\\result_both_30_20_high_quality.jpg\n"
+            << " - ImageResult\\my_filter_for_comparison.jpg\n"
+            << " - ImageResult\\result_strong_70_50.jpg\n"
+            << " - ImageResult\\comparison.jpg\n";
         std::cout << "\n==========================================\nTESTING COMPLETED\nPress any key to exit...\n==========================================\n";
         
         cv::waitKey(0);

@@ -169,11 +169,11 @@ private:
             {
                 float lum = luminance.at<float>(y, x), shadow = shadowMask.at<float>(y, x), highlight = highlightMask.at<float>(y, x);
 
-                float shadowCorrection = shadowAmount * shadow * (1.0f - lum) * 0.7f, highlightCorrection = highlightAmount * highlight * lum * 0.7f;
+                float shadowCorrection = shadowAmount * shadow * (1.0f - lum) * 0.3f, highlightCorrection = highlightAmount * highlight * lum * 0.3f;
 
                 float corrected = lum + shadowCorrection - highlightCorrection;
 
-                float minVal = lum * 0.3f, maxVal = 1.0f - (1.0f - lum) * 0.3f;
+                float minVal = lum * 0.5f, maxVal = 1.0f - (1.0f - lum) * 0.5f;
 
                 result.at<float>(y, x) = std::max(minVal, std::min(maxVal, corrected));
             }
@@ -293,19 +293,19 @@ private:
     /// <returns>Shadow mask</returns>
     cv::Mat createAdvancedShadowMask(const cv::Mat& luminance) const
     {
-        float shadowThreshold = 0.5f * tonalWidth;
+        float shadowThreshold = 0.4f * tonalWidth;
         cv::Mat smoothMask(luminance.size(), CV_32F);
 
         for (int y = 0; y < luminance.rows; y++)
             for (int x = 0; x < luminance.cols; x++) {
                 float lum = luminance.at<float>(y, x);
 
-                if (lum <= shadowThreshold * 0.3f)
+                if (lum <= shadowThreshold * 0.6f)
                     smoothMask.at<float>(y, x) = 1.0f;
                 else if (lum <= shadowThreshold) 
                 {
-                    float t = (lum - shadowThreshold * 0.3f) / (shadowThreshold * 0.7f);
-                    smoothMask.at<float>(y, x) = 1.0f - t * t;
+                    float t = (lum - shadowThreshold * 0.6f) / (shadowThreshold * 0.4f);
+                    smoothMask.at<float>(y, x) = 1.0f - t * 0.5f;
                 }
                 else
                     smoothMask.at<float>(y, x) = 0.0f;
@@ -313,7 +313,7 @@ private:
 
         if (blurRadius > 0.1f) 
         {
-            float effectiveRadius = std::min(blurRadius, 20.0f);
+            float effectiveRadius = blurRadius * 1.5f;
             smoothMask = applyFastGaussianBlur(smoothMask, effectiveRadius);
         }
 
